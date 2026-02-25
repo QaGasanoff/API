@@ -9,3 +9,6 @@ class AuthUser(BaseApi):
         response = requests.post(f"{self.ENDPOINT_LOGIN}", json=data, headers=self.HEADERS)
         self.token = response.json()["token"]
         return response
+
+    def get_token(self):
+        return self.token

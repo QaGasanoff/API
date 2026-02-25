@@ -1,6 +1,6 @@
 from create_user import CreateUser
 from auth_user import AuthUser
-from notes_api import CreateNotes
+from create_notes import CreateNotes
 from get_notes import GetNotes
 from delete_notes import DeleteNotes
 
@@ -13,7 +13,7 @@ print(f"Регистрация — ответ: {user.json()}")
 # --- Логин ---
 loginuser = AuthUser()
 login_response = loginuser.login_user("ramil706@ya.ru", "123456")
-_token = login_response.json()["token"]
+_token = loginuser.get_token()
 print(f"Логин — статус: {login_response.status_code}")
 print(f"Логин — токен: {_token}")
 
@@ -25,13 +25,18 @@ print(f"Создание заметки — ответ: {add_notes1.json()}")
 
 # --- Получение заметок ---
 notes = GetNotes(_token)
-get_response = notes.get_notes()
-print(f"Получение заметок — статус: {get_response.status_code}")
-print(f"Получение заметок — ответ: {get_response.json()}")
+all_notes = notes.get_all_notes()
+print(f"Все заметки — статус: {all_notes.status_code}")
+print(f"Все заметки — ответ: {all_notes.json()}")
+
+# --- Поиск заметки по title ---
+note = notes.get_note_by_title("Тестер")
+print(f"Найденная заметка: {note}")
+print(f"ID заметки: {notes.note_id}")
 
 # --- Удаление заметки ---
 delete_api = DeleteNotes(_token)
 delete_api.note_id = notes.note_id
 get_result = delete_api.delete_notes()
-print(f"Получение результата удаления: {get_result.status_code}")
-print(f"Получение ответа процесса удаления: {get_result.text}")
+print(f"Удаление — статус: {get_result.status_code}")
+print(f"Удаление — ответ: {get_result.text}")
