@@ -1,18 +1,18 @@
-from create_user import CreateUser
-from auth_user import AuthUser
-from create_notes import CreateNotes
-from get_notes import GetNotes
-from delete_notes import DeleteNotes
+from api.create_user import CreateUser
+from api.auth_user import AuthUser
+from api.create_notes import CreateNotes
+from api.get_notes import GetNotes
+from api.delete_notes import DeleteNotes
 
 # --- Регистрация ---
 newuser = CreateUser()
-user = newuser.register_user("ramil706@ya.ru", "123456", "Ramil106")
+user = newuser.register_user("testemi7771@ya.ru", "123456", "Emil117")
 print(f"Регистрация — статус: {user.status_code}")
 print(f"Регистрация — ответ: {user.json()}")
 
 # --- Логин ---
 loginuser = AuthUser()
-login_response = loginuser.login_user("ramil706@ya.ru", "123456")
+login_response = loginuser.login_user("testemi7771@ya.ru", "123456")
 _token = loginuser.get_token()
 print(f"Логин — статус: {login_response.status_code}")
 print(f"Логин — токен: {_token}")
